@@ -16,19 +16,19 @@ But this still makes it one of the good options to host a small Telegram bot for
    
    <img alt="KV" src="https://user-images.githubusercontent.com/4518597/228852192-8e9e9167-3d55-4e1c-b032-3a98f62882a5.png">
    
-3. [Optional] Use @getidsbot or @RawDataBot or other means to get a chat_id for logging
+3. [Optional] Use [@getidsbot](https://t.me/getidsbot) or [@RawDataBot](https://t.me/RawDataBot) or other means to get a `chat_id` for logging
 
 # How to use the code
 
 1. Go to your Cloudflare worker, then go to `Settings` tab
 
-2. Add Environment Variables, Telegram bot `API_KEY` and `TELEGRAM_LOG_CHAT_ID`(optional)
+2. Add Environment Variables, Telegram bot `API_KEY` and logging group's chat_id `TELEGRAM_LOG_CHAT_ID`(optional)
 
    And KV Namespace Bindings
    
    <img alt="settings" src="https://user-images.githubusercontent.com/4518597/228852866-fde9d590-ff42-413c-9675-fb6c38104a8d.png">
    
-3. Quick edit the worker and copy worker.js to the left panel
+3. Quick edit the worker and copy [`worker.js`](https://github.com/jasonycw/cloudflare-telegram-bot-template/blob/master/worker.js) to the left panel
 
    <img alt="Quick edit" src="https://user-images.githubusercontent.com/4518597/228857719-37f5b898-8dcb-49e7-a86b-95c8203fdea1.png">
    
