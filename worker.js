@@ -24,8 +24,8 @@ class Logger {
     await this.#log2telegram(`<pre><b><code>ERROR LOG</code></b></pre>${msg}\nRequest:<pre><code class="language-json">${JSON.stringify(request, null, 2)}</code></pre>`, false);
   }
 
-  async info(msg, payload) {
-    await this.#log2telegram(`${msg}\nPayload:<pre><code class="language-json">${JSON.stringify(payload, null, 2)}</code></pre>`);
+  async info(msg) {
+    await this.#log2telegram(msg);
   }
 }
 
@@ -49,7 +49,7 @@ async function handleRequest(request, env) {
         else
           kvValue[payload.message.date] = [...kvValue[payload.message.date], payload.message.text];
         await env.KV.put(kvKey, JSON.stringify(kvValue));
-        await logger.info(`Received msg from @${payload.message.from.username}.`, payload);
+        await logger.info(`Received msg from @${payload.message.from.username}.\nPayload:<pre><code class="language-json">${JSON.stringify(payload, null, 2)}</code></pre>`);
       }
     }
     return new Response("OK") // Doesn't really matter
