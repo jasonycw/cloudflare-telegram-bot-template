@@ -1,21 +1,22 @@
 export default {
-  // This is the webhook entry point
   async fetch(request, env) {
     return await handleRequest(request, env)
   }
 }
 
 async function errorLog(msg, request, env){
-  await log2telegram(`<pre><b><code>ERROR LOG</code></b></pre>${msg}\nRequest:<pre><code class="language-json">${JSON.stringify(request, null, 2)}</code></pre>`, env, 'false')
+  await log2telegram(`<pre><b><code>ERROR LOG</code></b></pre>${msg}\nRequest:<pre><code class="language-json">${JSON.stringify(request, null, 2)}</code></pre>`, env, env.TELEGRAM_LOG_CHAT_ID, 'false')
 }
 
 async function infoLog(msg, payload, env){
-  await log2telegram(`${msg}\nPayload:<pre><code class="language-json">${JSON.stringify(payload, null, 2)}</code></pre>`, env)
+  await log2telegram(`${msg}\nPayload:<pre><code class="language-json">${JSON.stringify(payload, null, 2)}</code></pre>`, env, env.TELEGRAM_LOG_CHAT_ID)
 }
 
-async function log2telegram(msg, env, disable_notification='True', chat_id = ''){
-  const logUrl = `https://api.telegram.org/bot${env.API_KEY}/sendMessage?chat_id=${chat_id || env.TELEGRAM_LOG_CHAT_ID}&parse_mode=HTML&text=${msg}&protect_content=true&disable_notification=${disable_notification}`
-  fetch(logUrl)
+async function log2telegram(msg, env, chat_id = '', disable_notification='True'){
+  if(chat_id){
+    const logUrl = `https://api.telegram.org/bot${env.API_KEY}/sendMessage?chat_id=${chat_id}&parse_mode=HTML&text=${msg}&protect_content=true&disable_notification=${disable_notification}`
+    fetch(logUrl)
+  }
 }
 
 async function handleRequest(request, env) {
