@@ -16,7 +16,7 @@ class Logger {
   async #log2telegram(msg, disable_notification=true){
     if(this.#CHAT_ID){
       const logUrl = `https://api.telegram.org/bot${this.#API_KEY}/sendMessage?chat_id=${this.#CHAT_ID}&parse_mode=HTML&text=${msg}&protect_content=true&disable_notification=${disable_notification}`;
-      fetch(logUrl);
+      await fetch(logUrl);
     }
   }
 
