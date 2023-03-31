@@ -1,4 +1,10 @@
 export default {
+  async scheduled(event, env, ctx) {
+    const now = (new Date()).toLocaleString('en-US', { timeZone: 'Asia/Hong_Kong' });
+    const photo = `https://www.hko.gov.hk/wxinfo/aws/hko_mica/ic2/latest_HD_IC2.jpg?v=${event.scheduledTime}`;
+    const url = `https://api.telegram.org/bot${env.API_KEY}/sendPhoto?chat_id=${env.TELEGRAM_LOG_CHAT_ID}&photo=${photo}&caption=[${now}](${photo})&parse_mode=MarkdownV2&disable_notification=true`;
+    await fetch(url);
+  },
   async fetch(request, env) {
     return await handleRequest(request, env);
   }
