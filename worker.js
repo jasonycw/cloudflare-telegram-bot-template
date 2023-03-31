@@ -16,7 +16,7 @@ export default {
       caption: `${location}\n<pre>${now}</pre>`,
       parse_mode: 'HTML'
     }));
-    const url = `https://api.telegram.org/bot${env.API_KEY}/sendMediaGroup?chat_id=-39180215&media=${JSON.stringify(inputMediaPhotos)}&disable_notification=true`;
+    const url = `https://api.telegram.org/bot${env.API_KEY}/sendMediaGroup?chat_id=${env.TELEGRAM_CRON_JOB_CHAT_ID}&media=${JSON.stringify(inputMediaPhotos)}&disable_notification=true`;
     console.log(222, url);
     const result = await fetch(url);
     console.log(333, result);
