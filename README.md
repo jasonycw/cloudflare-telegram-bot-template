@@ -9,13 +9,13 @@ But this still makes it one of the good options to host a small Telegram bot for
 1. Use [@BotFather](https://t.me/BotFather) to create your own bot and have the API key available
 
    <img alt="BotFather" src="https://user-images.githubusercontent.com/4518597/228850224-f7c66aac-47b9-472c-94c5-1b690a1b8a7c.png">
-   
+
 2. Created an account on [Cloudflare](dash.cloudflare.com) and have created a worker and a KV
 
    <img alt="worker" src="https://user-images.githubusercontent.com/4518597/228850967-e85bba97-a8bc-4290-b9d0-1cd6868f4bb2.png">
-   
+
    <img alt="KV" src="https://user-images.githubusercontent.com/4518597/228852192-8e9e9167-3d55-4e1c-b032-3a98f62882a5.png">
-   
+
 3. [Optional] Use [@getidsbot](https://t.me/getidsbot) or [@RawDataBot](https://t.me/RawDataBot) or other means to get a `chat_id` for logging
 
 # How to use the code
@@ -25,19 +25,43 @@ But this still makes it one of the good options to host a small Telegram bot for
 2. Add Environment Variables, Telegram bot `API_KEY` and logging group's chat_id `TELEGRAM_LOG_CHAT_ID`(optional)
 
    And KV Namespace Bindings
-   
+
    <img alt="settings" src="https://user-images.githubusercontent.com/4518597/228852866-fde9d590-ff42-413c-9675-fb6c38104a8d.png">
-   
-3. Quick edit the worker and copy [`worker.js`](https://github.com/jasonycw/cloudflare-telegram-bot-template/blob/master/worker.js) to the left panel
+
+3. On Dev machine, ensure Node.js is installed, recommend Node.js 16.x
+4. On Dev machine, install dependencies
+
+   ```bash
+   npm install
+
+   # Or
+   npm install -g pnpm
+   pnpm install
+   ```
+
+5. On Dev machine, update `./wrangler.toml` with your own settings
+
+   ```sh
+   $ cp ./wrangler.toml.example ./wrangler.toml
+   $ vi ./wrangler.toml
+   $ cat ./wrangler.toml
+   name = "bot-tg" # Set desired worker domain
+   main = "src/index.ts"
+   compatibility_date = "2023-03-30"
+   ```
+
+6. On Dev machine, update code and deploy
+
+   ```sh
+   $ npx wrangler publish
+   ```
+
+   Observe [`Worker`](https://github.com/jasonycw/cloudflare-telegram-bot-template/blob/master/worker.js) deployed
 
    <img alt="Quick edit" src="https://user-images.githubusercontent.com/4518597/228857719-37f5b898-8dcb-49e7-a86b-95c8203fdea1.png">
-   
-4. Save & deploy
 
-   <img alt="Save and deploy" src="https://user-images.githubusercontent.com/4518597/228857895-9821b62c-720e-4737-b36a-a14e6392f943.png">
+7. Call the following API `https://api.telegram.org/bot{YOUR TELEGRAM API KEY}/setWebhook?url={YOUR WORKER'S DOMAIN}`
 
-5. Call the following API `https://api.telegram.org/bot{YOUR TELEGRAM API KEY}/setWebhook?url={YOUR WORKER'S DOMAIN}`
-   
    <img alt="webhook" src="https://user-images.githubusercontent.com/4518597/228856339-5f57c2a3-8ecf-4152-8e47-d55e05a56e63.png">
 
-6. Done👍
+8. Done👍
