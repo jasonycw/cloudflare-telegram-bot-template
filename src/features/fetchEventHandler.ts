@@ -13,8 +13,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 
 import type { Request as WorkerRequest } from '@cloudflare/workers-types/experimental';
-import dayjs from 'dayjs';
-import _ from 'lodash';
 import Logger from '../infras/logger';
 
 type Env = Record<string, any>;
@@ -62,7 +60,7 @@ export default async function handleRequest(request: WorkerRequest, env: Env) {
       }
     }
 
-    return new Response(dayjs().toISOString()); // Doesn't really matter
+    return new Response(new Date().toISOString()); // Doesn't really matter
   } catch (exception) {
     if (exception instanceof Error) {
       await logger.error(`${exception.stack}`, request);

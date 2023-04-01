@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import type { ExecutionContext } from '@cloudflare/workers-types/experimental';
-import _ from 'lodash';
+import _map from 'lodash/map';
 
 type Event = {
   cron: string;
@@ -32,7 +32,7 @@ export default async function scheduled(
     // 'Tsim Sha Tsui (looking towards the west)': `https://www.hko.gov.hk/wxinfo/aws/hko_mica/hk2/latest_HD_HK2.jpg`,
     // 'Sai Wan Ho (looking towards the east)': `https://www.hko.gov.hk/wxinfo/aws/hko_mica/swh/latest_HD_SWH.jpg`,
   };
-  const inputMediaPhotos = _.map(photos, (url: string, location: string) => ({
+  const inputMediaPhotos = _map(photos, (url: string, location: string) => ({
     type: 'photo',
     media: `${url}?v=${event.scheduledTime}`,
     caption: `${location}\n<pre>${now}</pre>`,
