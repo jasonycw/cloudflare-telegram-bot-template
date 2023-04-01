@@ -1,0 +1,18 @@
+{
+  "env": {
+    "node": true
+  },
+  "plugins": ["prettier", "import"],
+  "extends": "prettier",
+  "overrides": [
+    {
+      "extends": ["xo-typescript/space"],
+      "files": ["*.ts", "*.tsx"]
+    }
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "rules": {}
+}
