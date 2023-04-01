@@ -45,9 +45,17 @@ But this still makes it one of the good options to host a small Telegram bot for
    $ cp ./wrangler.toml.example ./wrangler.toml
    $ vi ./wrangler.toml
    $ cat ./wrangler.toml
-   name = "bot-tg" # Set desired worker domain
+   name = "bot-tg" # Set your worker domain
    main = "src/index.ts"
    compatibility_date = "2023-03-30"
+
+   [vars]
+   API_KEY=123 # Set your Telegram bot `API_KEY`
+   TELEGRAM_LOG_CHAT_ID=456 # Set your logging group's chat_id `TELEGRAM_LOG_CHAT_ID`(optional)
+
+   kv_namespaces = [
+     { binding = "KV", id = "vjicbsjdvn51516" } # Set your KV binding id
+   ]
    ```
 
 6. On Dev machine, update `./package.json` with your own settings
@@ -61,7 +69,8 @@ But this still makes it one of the good options to host a small Telegram bot for
 7. On Dev machine, update code and deploy
 
    ```sh
-   $ npx wrangler publish
+   $ npm run start
+   $ npm run deploy
    ```
 
    Observe [`Worker`](https://github.com/jasonycw/cloudflare-telegram-bot-template/blob/master/worker.js) deployed

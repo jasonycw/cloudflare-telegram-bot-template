@@ -1,3 +1,11 @@
 name = "<WORKER_PREFIX_BEFORE_YOUR_DOMAIN>"
 main = "src/index.ts"
 compatibility_date = "2023-03-30"
+
+[vars]
+API_KEY=
+TELEGRAM_LOG_CHAT_ID=
+
+kv_namespaces = [
+  { binding = "KV", id = "<YOUR_BINDING_ID>" }
+]

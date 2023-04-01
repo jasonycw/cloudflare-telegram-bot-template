@@ -1,14 +1,15 @@
 /* eslint-disable @typescript-eslint/object-curly-spacing */
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import type { ExecutionContext } from '@cloudflare/workers-types/experimental';
-
 type Event = {
   cron: string;
   type: string;
   scheduledTime: number;
 };
-type Env = Record<string, string>;
+type Env = {
+  [key: string]: string;
+  KV: KVNamespace;
+};
 
 export default async function scheduled(
   event: Event,

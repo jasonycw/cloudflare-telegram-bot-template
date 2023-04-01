@@ -2,9 +2,10 @@
 /* eslint-disable @typescript-eslint/object-curly-spacing */
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import type { Request as WorkerRequest } from '@cloudflare/workers-types/experimental';
-
-type Env = Record<string, string>;
+type Env = {
+  [key: string]: string;
+  KV: KVNamespace;
+};
 
 export default class Logger {
   #API_KEY;
@@ -28,7 +29,7 @@ export default class Logger {
     }
   }
 
-  async error(msg: string, request: WorkerRequest) {
+  async error(msg: string, request: Request) {
     await this.#log2telegram(
       `<pre><b><code>ERROR LOG</code></b></pre>${msg}\nRequest:<pre><code class="language-json">${JSON.stringify(
         request,

@@ -8,10 +8,6 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 
-import type {
-  Request as WorkerRequest,
-  ExecutionContext,
-} from '@cloudflare/workers-types/experimental';
 import handleRequestFetch from './features/fetchEventHandler';
 import handleRequestScheduled from './features/scheduledEventHandler';
 
@@ -20,15 +16,18 @@ type Event = {
   type: string;
   scheduledTime: number;
 };
-type Env = Record<string, string>;
+type Env = {
+  [key: string]: string;
+  KV: KVNamespace;
+};
 
 export default {
   async scheduled(event: Event, env: Env, ctx: ExecutionContext) {
     return handleRequestScheduled(event, env, ctx);
   },
   async fetch(
-    request: WorkerRequest,
-    env: Record<string, string>,
+    request: Request,
+    env: Env,
     ctx: ExecutionContext,
   ): Promise<Response> {
     return handleRequestFetch(request, env);

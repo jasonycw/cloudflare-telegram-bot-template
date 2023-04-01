@@ -12,12 +12,14 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 
-import type { Request as WorkerRequest } from '@cloudflare/workers-types/experimental';
 import Logger from '../infras/logger';
 
-type Env = Record<string, any>;
+type Env = {
+  [key: string]: string;
+  KV: KVNamespace;
+};
 
-export default async function handleRequest(request: WorkerRequest, env: Env) {
+export default async function handleRequest(request: Request, env: Env) {
   const logger = new Logger(env);
   try {
     if (request.method === 'POST') {
