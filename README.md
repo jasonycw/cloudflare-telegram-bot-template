@@ -50,7 +50,15 @@ But this still makes it one of the good options to host a small Telegram bot for
    compatibility_date = "2023-03-30"
    ```
 
-6. On Dev machine, update code and deploy
+6. On Dev machine, update `./package.json` with your own settings
+
+   ```json
+   {
+     "name": "bot-tg" // Set desired worker domain, same as in wrangler.toml
+   }
+   ```
+
+7. On Dev machine, update code and deploy
 
    ```sh
    $ npx wrangler publish
@@ -60,8 +68,8 @@ But this still makes it one of the good options to host a small Telegram bot for
 
    <img alt="Quick edit" src="https://user-images.githubusercontent.com/4518597/228857719-37f5b898-8dcb-49e7-a86b-95c8203fdea1.png">
 
-7. Call the following API `https://api.telegram.org/bot{YOUR TELEGRAM API KEY}/setWebhook?url={YOUR WORKER'S DOMAIN}`
+8. Call the following API `https://api.telegram.org/bot{YOUR TELEGRAM API KEY}/setWebhook?url={YOUR WORKER'S DOMAIN}`
 
    <img alt="webhook" src="https://user-images.githubusercontent.com/4518597/228856339-5f57c2a3-8ecf-4152-8e47-d55e05a56e63.png">
 
-8. Done👍
+9. Done👍
