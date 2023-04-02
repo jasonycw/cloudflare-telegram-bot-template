@@ -8,28 +8,18 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 
-import handleRequestFetch from './features/fetchEventHandler';
-import handleRequestScheduled from './features/scheduledEventHandler';
-
-type Event = {
-  cron: string;
-  type: string;
-  scheduledTime: number;
-};
-type Env = {
-  [key: string]: string;
-  KV: KVNamespace;
-};
+import handleFetchedRequest from './features/fetchedRequestHandler';
+import handleScheduledEvent from './features/scheduledEventHandler';
+import Logger from './infras/logger';
+import { Event, EnvironmentVariables } from './types/worker';
 
 export default {
-  async scheduled(event: Event, env: Env, ctx: ExecutionContext) {
-    return handleRequestScheduled(event, env, ctx);
+  async scheduled(event: Event, env: EnvironmentVariables, ctx: ExecutionContext) {
+    const logger = new Logger(env);
+    return await handleScheduledEvent(logger, event, env, ctx);
   },
-  async fetch(
-    request: Request,
-    env: Env,
-    ctx: ExecutionContext,
-  ): Promise<Response> {
-    return handleRequestFetch(request, env);
+  async fetch(request: Request, env: EnvironmentVariables, ctx: ExecutionContext): Promise<Response> {
+    const logger = new Logger(env);
+    return await handleFetchedRequest(logger, request, env);
   },
 };

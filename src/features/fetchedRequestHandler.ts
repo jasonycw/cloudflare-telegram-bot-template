@@ -1,26 +1,11 @@
-/**
- * Welcome to Cloudflare Workers! This is your first worker.
- *
- * - Run `wrangler dev src/index.ts` in your terminal to start a development server
- * - Open a browser tab at http://localhost:8787/ to see your worker in action
- * - Run `wrangler publish src/index.ts --name my-worker` to publish your worker
- *
- * Learn more at https://developers.cloudflare.com/workers/
- */
-/* eslint-disable @typescript-eslint/object-curly-spacing */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-
 import Logger from '../infras/logger';
+import { EnvironmentVariables } from '../types/worker'
 
-type Env = {
-  [key: string]: string;
-  KV: KVNamespace;
-};
-
-export default async function handleRequest(request: Request, env: Env) {
-  const logger = new Logger(env);
+export default async function handler(
+  logger: Logger, 
+  request: Request, 
+  env: EnvironmentVariables
+) {
   try {
     if (request.method === 'POST') {
       const payload = await request.json();

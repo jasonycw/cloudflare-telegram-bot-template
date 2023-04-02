@@ -1,22 +1,12 @@
-/* eslint-disable @typescript-eslint/object-curly-spacing */
-/* eslint-disable @typescript-eslint/naming-convention */
+import Logger from '../infras/logger';
+import { Event, EnvironmentVariables } from './types/worker';
 
-type Event = {
-  cron: string;
-  type: string;
-  scheduledTime: number;
-};
-type Env = {
-  [key: string]: string;
-  KV: KVNamespace;
-};
-
-export default async function scheduled(
+export default async function handler(
+  logger: Logger,
   event: Event,
-  env: Env,
+  env: EnvironmentVariables,
   ctx: ExecutionContext,
 ) {
-  // const logger = new Logger(env);
   const now = new Date().toLocaleString('en-US', {
     timeZone: 'Asia/Hong_Kong',
   });

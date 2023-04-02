@@ -1,22 +1,15 @@
-/* eslint-disable @typescript-eslint/member-ordering */
-/* eslint-disable @typescript-eslint/object-curly-spacing */
-/* eslint-disable @typescript-eslint/naming-convention */
-
-type Env = {
-  [key: string]: string;
-  KV: KVNamespace;
-};
+import { EnvironmentVariables } from '../types/worker';
 
 export default class Logger {
   #API_KEY;
   #CHAT_ID;
 
-  constructor(env: Env) {
+  constructor(env: EnvironmentVariables) {
     this.#API_KEY = env.API_KEY;
     this.#CHAT_ID = env.TELEGRAM_LOG_CHAT_ID;
   }
 
-  async #log2telegram(msg: string, disable_notification = true) {
+  async #log2telegram(msg: string, disable_notification: boolean = true) {
     if (this.#CHAT_ID) {
       const logUrl = `https://api.telegram.org/bot${
         this.#API_KEY
