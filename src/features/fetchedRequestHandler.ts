@@ -9,7 +9,7 @@ export default async function handler(
   try {
     if (request.method === 'POST') {
       const payload = await request.json();
-      if (payload?.message?.from && !payload.message.from.is_bot) {
+      if (payload?.message?.from) {
         const kvKey = `conversation-with-${payload.message.from.username}`;
         const past = await env.KV.get(kvKey, { type: 'json' });
         const kvValue = { ...past };
