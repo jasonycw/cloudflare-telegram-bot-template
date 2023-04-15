@@ -4,6 +4,9 @@
 
 But this still makes it one of the good options to host a small Telegram bot for FREE!
 
+<img width="151" alt="image" src="https://user-images.githubusercontent.com/4518597/232227364-04d45bce-c399-47aa-ab21-d2ceaa8193ed.png">
+
+
 # Prerequisie
 
 1. Use [@BotFather](https://t.me/BotFather) to create your own bot and have the API key available
